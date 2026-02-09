@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teddy Day Celebration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5e6 50%, #ffe6f0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #d41159;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+
+        .emoji-header {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #ff69b4;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .heart-decoration {
+            font-size: 2em;
+            margin: 0 10px;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .button-container {
+            margin: 30px 0;
+        }
+
+        .get-teddy-btn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 20, 147, 0.3);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .get-teddy-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(255, 20, 147, 0.5);
+        }
+
+        .get-teddy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .teddy {
+            position: fixed;
+            font-size: 3em;
+            user-select: none;
+            pointer-events: none;
+            animation: twirl 1.5s ease-in-out forwards;
+            z-index: 5;
+        }
+
+        @keyframes twirl {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(20px, -30px) rotate(180deg) scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(40px, -80px) rotate(360deg) scale(0.5);
+            }
+        }
+
+        .message {
+            font-size: 1.2em;
+            color: #d41159;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2em;
+            opacity: 0.3;
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingContainer"></div>
+    
+    <div class="container">
+        <div class="emoji-header">🧸💕</div>
+        <h1>Teddy Day!</h1>
+        <p class="subtitle">
+            <span class="heart-decoration">💗</span>
+            Cute like this teddy, special like you! Happy Teddy Day!
+            <span class="heart-decoration">💗</span>
+        </p>
+        
+        <div class="button-container">
+            <button class="get-teddy-btn" onclick="getTeddy()">Get Teddy 🧸</button>
+        </div>
+        
+        <p class="message">Click to get adorable teddies! 💕</p>
+    </div>
+
+    <script>
+        // Create floating background hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingContainer');
+            const heartEmojis = ['💗', '❤️', '💕', '💖'];
+            
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Teddy popping function
+        function getTeddy() {
+            const teddyEmojis = ['🧸', '🐻', '🐻‍❄️', '🐻‍🍳'];
+            const teddy = document.createElement('div');
+            teddy.className = 'teddy';
+            teddy.textContent = teddyEmojis[Math.floor(Math.random() * teddyEmojis.length)];
+            
+            // Random position on screen
+            const randomX = Math.random() * (window.innerWidth - 100);
+            const randomY = Math.random() * (window.innerHeight - 100);
+            
+            teddy.style.left = randomX + 'px';
+            teddy.style.top = randomY + 'px';
+            
+            document.body.appendChild(teddy);
+            
+            // Remove teddy after animation completes
+            setTimeout(() => {
+                teddy.remove();
+            }, 1500);
+            
+            // Play a sweet sound (optional - using beep)
+            playSound();
+        }
+
+        // Simple beep sound function
+        function playSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                
+                oscillator.connect(gain);
+                gain.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                
+                gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (e) {
+                // Sound not supported
+            }
+        }
+
+        // Initialize floating hearts on load
+        window.addEventListener('load', createFloatingHearts);
+
+        // Allow multiple clicks without delay
+        document.querySelector('.get-teddy-btn').addEventListener('click', function() {
+            // Create multiple teddies on rapid clicks
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => getTeddy(), i * 100);
+            }
+        });
+    </script>
+</body>
+</html>
